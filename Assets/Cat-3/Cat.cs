@@ -23,6 +23,7 @@ public class Cat : MonoBehaviour
         {
             return _health;
         }
+
         private set
         {
             if (value >= _minHealth && value <= _maxHealth)
