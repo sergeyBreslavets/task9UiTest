@@ -12,9 +12,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private float _sleepSecond = 1f;
 
     private Coroutine _changeHealt;
-    private float _minHealth = 0;
     private WaitForSeconds _sleepTime;
-
 
     private void Start()
     {
@@ -23,7 +21,7 @@ public class HealthBar : MonoBehaviour
 
     public void Init()
     {
-        _bar.value = _cat.Health ;
+        _bar.value = _cat.Health;
         _text.text = _cat.Health.ToString();
     }
 
@@ -38,13 +36,11 @@ public class HealthBar : MonoBehaviour
     private IEnumerator ChangeHealt(float target)
     {
         while (_bar.value != target)
-        {   
+        {
             float result = Mathf.MoveTowards(_bar.value, target, _stepChange);
             _bar.value = result;
             _text.text = result.ToString();
-           yield return _sleepTime;
+            yield return _sleepTime;
         }
     }
-
-
 }

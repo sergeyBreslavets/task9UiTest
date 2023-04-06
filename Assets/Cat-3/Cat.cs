@@ -6,6 +6,8 @@ public class Cat : MonoBehaviour
     [SerializeField] private float _maxHealth = 100f;
     [SerializeField] private float _minHealth = 0;
 
+    private float _health;
+
     public UnityEvent _changeHealth;
     public UnityEvent _init;
 
@@ -15,19 +17,31 @@ public class Cat : MonoBehaviour
         _init.Invoke();
     }
 
-    public float Health { get; private set; }
+    public float Health
+    {
+        get
+        {
+            return _health;
+        }
+        private set
+        {
+            if (value >= _minHealth && value <= _maxHealth)
+                _health = value;
+            else if (value < _minHealth)
+                _health = _minHealth;
+            else
+                _health = _maxHealth;
+
+            _changeHealth.Invoke();
+        }
+    }
 
     public void TakeDamage(float damage)
     {
         if (damage < 0)
             return;
 
-        if (Health > damage)
-            Health -= damage;
-        else
-            Health = _minHealth;
-
-        _changeHealth.Invoke();
+        Health -= damage;
     }
 
     public void AddHealth(float health)
@@ -35,11 +49,6 @@ public class Cat : MonoBehaviour
         if (health < 0)
             return;
 
-        if (Health + health > _maxHealth)
-            Health = _maxHealth;
-        else
-            Health += health;
-
-        _changeHealth.Invoke();
+        Health += health;
     }
 }
