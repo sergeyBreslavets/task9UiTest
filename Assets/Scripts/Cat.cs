@@ -26,13 +26,7 @@ public class Cat : MonoBehaviour
 
         private set
         {
-            if (value >= _minHealth && value <= _maxHealth)
-                _health = value;
-            else if (value < _minHealth)
-                _health = _minHealth;
-            else
-                _health = _maxHealth;
-
+            _health = Mathf.Clamp(value, _minHealth, _maxHealth);
             _changeHealth.Invoke();
         }
     }
